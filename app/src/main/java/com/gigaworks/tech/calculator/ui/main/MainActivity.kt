@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
@@ -28,7 +29,6 @@ import com.gigaworks.tech.calculator.ui.settings.SettingsActivity
 import com.gigaworks.tech.calculator.ui.view.CalculatorEditText
 import com.gigaworks.tech.calculator.util.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import kotlin.math.sqrt
 
 
@@ -39,18 +39,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var mCurrentAnimator: Animator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val appPreference = AppPreference(this)
-        val accentTheme =
-            appPreference.getStringPreference(AppPreference.ACCENT_THEME, AccentTheme.BLUE.name)
-        setTheme(getAccentTheme(accentTheme))
+//        val appPreference = AppPreference(this)
+//        val accentTheme =
+//            appPreference.getStringPreference(AppPreference.ACCENT_THEME, AccentTheme.BLUE.name)
+//        setTheme(getAccentTheme(accentTheme))
         super.onCreate(savedInstanceState)
-        setupActionBar(binding.toolbar)
+//        setupActionBar(binding.toolbar)
 
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        val window: Window = this.window
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+// finally change the color
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         setupView()
         setupObservers()
         setClickListener()
         setAppTheme()
-
     }
 
     private val buttonClick = View.OnClickListener {
@@ -105,10 +110,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 viewModel.calculateExpression(s.toString())
             }
         }
-
     }
 
     private fun setClickListener() {
+
         //number Pad
         with(binding.numPad) {
             //first row
@@ -135,7 +140,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             zero.setOnClickListener(buttonClick)
             minus.setOnClickListener(buttonClick)
         }
-
         //scientific Pad
         with(binding.scientificPad) {
             //first row
@@ -272,9 +276,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
 
-        binding.calculatorPadViewPager?.addScientificPadStateChangeListener {
-            binding.scientificPad.arrow.animate().rotationBy(180F).setDuration(300).start()
-        }
+//        binding.calculatorPadViewPager?.addScientificPadStateChangeListener {
+//            binding.scientificPad.arrow.animate().rotationBy(180F).setDuration(300).start()
+//        }
 
     }
 
@@ -311,14 +315,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     /**
      * On back pressed, close the scientific pad if it is open
      * else close the app.
-     * */
-    override fun onBackPressed() {
-        if (binding.calculatorPadViewPager?.currentItem == 0 || binding.calculatorPadViewPager == null) {
-            super.onBackPressed()
-        } else {
-            binding.calculatorPadViewPager?.currentItem = 0
-        }
-    }
+     **/
+//    override fun onBackPressed() {
+//        if (binding.calculatorPadViewPager?.currentItem == 0 || binding.calculatorPadViewPager == null) {
+//            super.onBackPressed()
+//        } else {
+//            binding.calculatorPadViewPager?.currentItem = 0
+//        }
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -361,10 +365,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun showTutorial() {
-        //close side panel before starting tutorial
-        if (binding.calculatorPadViewPager?.currentItem == 1) {
-            binding.calculatorPadViewPager?.currentItem = 0
-        }
+//        close side panel before starting tutorial
+//        if (binding.calculatorPadViewPager?.currentItem == 1) {
+//            binding.calculatorPadViewPager?.currentItem = 0
+//        }
         val tapTargetSequence = TapTargetSequence(this)
         val delete = TapTarget
             .forView(
@@ -460,12 +464,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         tapTargetSequence.listener(object : TapTargetSequence.Listener {
             override fun onSequenceFinish() {
-                binding.calculatorPadViewPager?.currentItem = 0
+//                binding.calculatorPadViewPager?.currentItem = 0
             }
 
             override fun onSequenceStep(lastTarget: TapTarget, targetClicked: Boolean) {
                 if (lastTarget.id() == 56) {
-                    binding.calculatorPadViewPager?.currentItem = 1
+//                    binding.calculatorPadViewPager?.currentItem = 1
                 }
             }
 
@@ -517,7 +521,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun animateClear() {
         with(binding) {
-            val cx = clearView.right
+            val cx = clearView!!.right
             val cy = clearView.bottom
             val l = clearView.height
             val b = clearView.width

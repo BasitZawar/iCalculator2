@@ -34,7 +34,7 @@ class CalculatorPadViewPager(context: Context, attrs: AttributeSet) : ViewPager(
 
     private val mStaticPagerAdapter = object : PagerAdapter() {
         override fun getCount(): Int {
-            return childCount
+            return 1
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {

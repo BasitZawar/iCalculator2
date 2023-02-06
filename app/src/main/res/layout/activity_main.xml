@@ -6,43 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        app:elevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:menu="@menu/main_menu"
-            app:title=" " />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            app:elevation="0dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:visibility="gone"
+                app:menu="@menu/main_menu"
+                app:title=" " />
+        </com.google.android.material.appbar.AppBarLayout>
 
     <include
         android:id="@+id/resultPad"
         layout="@layout/result_pad"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageId"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.gigaworks.tech.calculator.ui.view.CalculatorPadViewPager
+    <ImageView
+        android:id="@+id/imageId"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultPad"
+        app:layout_constraintBottom_toTopOf="@id/calculatorPadViewPager"
+        />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/calculatorPadViewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:allowClickWhenDisabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
-
         <include
             android:id="@+id/numPad"
             layout="@layout/num_pad" />
@@ -51,7 +64,7 @@
             android:id="@+id/scientificPad"
             layout="@layout/scientific_pad" />
 
-    </com.gigaworks.tech.calculator.ui.view.CalculatorPadViewPager>
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -64,12 +77,11 @@
         android:id="@+id/clearView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:elevation="4dp"
         android:background="?attr/clearColor"
+        android:elevation="4dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appBar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

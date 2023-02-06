@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:clipToPadding="false"
-    android:background="?attr/colorSurface">
+    android:background="@color/black">
 
     <com.gigaworks.tech.calculator.ui.view.CalculatorEditText
         android:id="@+id/expression"
@@ -22,8 +22,8 @@
         android:inputType="textNoSuggestions"
         android:textAppearance="@style/TextAppearance.CalculatorPlus.Headline5"
         android:fontFamily="@font/lato"
-        custom:maxTextSize="36sp"
-        custom:minTextSize="25sp"
+        custom:maxTextSize="30sp"
+        custom:minTextSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
